@@ -1,5 +1,7 @@
 package org.acme;
 
+import io.smallrye.mutiny.Uni;
+
 public class MessageService {
     private final String message;
 
@@ -7,7 +9,8 @@ public class MessageService {
         this.message = message;
     }
 
-    public String sayHello(String name) {
-        return message + " " + name;
+    public Uni<String> sayHello(String name) {
+        return Uni.createFrom().item(name)
+                .onItem().apply(n -> String.format("%s %s", message, name));
     }
 }

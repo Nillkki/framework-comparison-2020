@@ -1,5 +1,7 @@
 package org.acme;
 
+import io.smallrye.mutiny.Uni;
+
 import javax.validation.constraints.NotBlank;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,7 +21,7 @@ public class MessageResource {
     @GET
     @Path("/hello/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello(@NotBlank @PathParam("name") String name) {
+    public Uni<String> hello(@NotBlank @PathParam("name") String name) {
         return messageService.sayHello(name);
     }
 }
